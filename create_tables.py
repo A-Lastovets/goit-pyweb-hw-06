@@ -8,44 +8,50 @@ def create_tables():
 
         # Створення таблиць
         cursor.execute('''
-        CREATE TABLE students (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            first_name TEXT,
-            last_name TEXT,
-            group_id INTEGER
+        CREATE TABLE IF NOT EXISTS students (
+            student_id INTEGER PRIMARY KEY,
+            first_name TEXT NOT NULL,
+            last_name TEXT NOT NULL,
+            group_id INTEGER,
+            FOREIGN KEY (group_id) REFERENCES groups (group_id)
         )
         ''')
 
         cursor.execute('''
-        CREATE TABLE groups (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            group_name TEXT
+        CREATE TABLE IF NOT EXISTS groups (
+            group_id INTEGER PRIMARY KEY,
+            group_name TEXT NOT NULL
         )
         ''')
 
         cursor.execute('''
-        REATE TABLE teachers (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            first_name TEXT,
-            last_name TEXT
+        CREATE TABLE IF NOT EXISTS teachers (
+            teacher_id INTEGER PRIMARY KEY,
+            name TEXT NOT NULL,
+            subject_id INTEGER,
+            FOREIGN KEY (subject_id) REFERENCES subjects (subject_id)
         )
         ''')
 
         cursor.execute('''
-        CREATE TABLE subjects (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            subject_name TEXT,
+        CREATE TABLE IF NOT EXISTS subjects (
+            subject_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            subject_name TEXT NOT NULL,
             teacher_id INTEGER
         )
         ''')
 
         cursor.execute('''
-        CREATE TABLE grades (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+        CREATE TABLE IF NOT EXISTS grades (
+            grade_id INTEGER PRIMARY KEY AUTOINCREMENT,
             student_id INTEGER,
             subject_id INTEGER,
+            teacher_id INTEGER,
             grade INTEGER,
-            date_received DATE
+            date_received DATE NOT NULL,
+            FOREIGN KEY (student_id) REFERENCES students (student_id),
+            FOREIGN KEY (subject_id) REFERENCES subjects (subject_id),
+            FOREIGN KEY (teacher_id) REFERENCES teachers (teacher_id)
         )
         ''')
 

@@ -1,6 +1,7 @@
 import sqlite3
 import sys
 import os
+from pprint import pprint
 
 def execute_query(sql: str) -> list:
     with sqlite3.connect('university.db') as con:
@@ -9,7 +10,7 @@ def execute_query(sql: str) -> list:
         return cur.fetchall()
 
 def main() -> None:
-    if len(sys.argv) < 2 or len(sys.argv) > 2:
+    if len(sys.argv) != 2:
         print("Usage: python runSQL.py query_X.sql")
         sys.exit(1)
 
@@ -21,7 +22,7 @@ def main() -> None:
     with open(source_file, encoding = 'utf-8') as f:
         sql_query = f.read()
 
-    print(execute_query(sql_query))
+    pprint(execute_query(sql_query))
 
 
 if __name__ == '__main__':

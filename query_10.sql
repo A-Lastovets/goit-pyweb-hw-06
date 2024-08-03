@@ -1,5 +1,6 @@
 -- Список курсів, які певному студенту читає певний викладач
-SELECT subjects.subject_name
-FROM grades
-JOIN subjects ON grades.subject_id = subjects.id
-WHERE grades.student_id = ? AND subjects.teacher_id = ?;
+SELECT DISTINCT subjects.subject_id, subjects.subject_name AS subject_name
+FROM subjects
+JOIN grades ON subjects.subject_id = grades.subject_id
+JOIN teachers ON subjects.subject_id = teachers.subject_id
+WHERE grades.student_id = 3 AND teachers.teacher_id = 6;

@@ -1,4 +1,4 @@
 -- Знайти список студентів у певній групі
 SELECT students.first_name, students.last_name
 FROM students
-WHERE students.group_id = ?;
+WHERE students.group_id = 2;
